@@ -1,10 +1,25 @@
-public class GameOfOctopus extends Thread{
 
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class GameOfOctopus extends Thread{
+    public static List<String> names = new ArrayList<>();
+
+    static {
+        try{
+            names = FileReader.readFile("names");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    Random rand = new Random();
     @Override
     public void run() {
-        System.out.println("Run has been called");
 
-        Octopus Otto = new Octopus();
+        Octopus Otto = new Octopus(names.get(rand.nextInt(names.size())));
         Otto.makeDoActivity();
     }
 }
